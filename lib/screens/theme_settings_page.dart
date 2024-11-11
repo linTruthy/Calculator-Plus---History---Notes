@@ -1,8 +1,11 @@
 import 'package:calculator_plus_history_notes/managers/theme_notifier.dart';
+import 'package:calculator_plus_history_notes/widgets/ad_banner_widget.dart';
 import 'package:calculator_plus_history_notes/widgets/adaptive_card.dart';
 import 'package:calculator_plus_history_notes/widgets/bouncing_button.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../models/app_theme_config_model.dart';
 import '../widgets/reponsive_widget.dart';
@@ -55,6 +58,13 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
           _buildAppearanceSection(themeManager, theme),
           const SizedBox(height: 24),
           _buildThemesSection(themeManager, theme),
+          const SizedBox(height: 24),
+          if (!kIsWeb)
+            const AdBannerWidget(
+              adSize: AdSize(width: 320, height: 50),
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(vertical: 16),
+            ),
         ],
       ),
     );

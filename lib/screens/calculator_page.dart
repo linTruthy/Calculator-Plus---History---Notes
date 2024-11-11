@@ -3,10 +3,13 @@ import 'package:calculator_plus_history_notes/widgets/adaptive_button.dart';
 import 'package:calculator_plus_history_notes/widgets/adaptive_card.dart';
 import 'package:calculator_plus_history_notes/widgets/bouncing_button.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../services/ad_manager.dart';
 import '../models/app_theme_config_model.dart';
 import '../models/history_item.dart';
+import '../widgets/ad_banner_widget.dart';
 import '../widgets/reponsive_widget.dart';
 import 'theme_settings_page.dart';
 
@@ -43,6 +46,7 @@ class _CalculatorPageState extends State<CalculatorPage>
 
   @override
   void dispose() {
+    AdManager().dispose();
     _animationController.dispose();
     _nameController.dispose();
     super.dispose();
@@ -105,6 +109,9 @@ class _CalculatorPageState extends State<CalculatorPage>
           _addToHistory();
           _equation = _result.toString();
         });
+        if (!kIsWeb) {
+          AdManager().onCalculationPerformed();
+        }
       }
     } catch (e) {
       setState(() {
@@ -231,6 +238,7 @@ class _CalculatorPageState extends State<CalculatorPage>
                       child: _buildKeypad(theme),
                     ),
                   ),
+                  if (!kIsWeb) const AdBannerWidget(),
                 ],
               ),
               if (_isHistoryVisible) _buildHistoryPanel(theme),
@@ -341,6 +349,8 @@ class _CalculatorPageState extends State<CalculatorPage>
       borderRadius: 16,
       child: Column(
         children: [
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:1172723274.
+          if (_history.isNotEmpty && !kIsWeb) const AdBannerWidget(),
           Expanded(
             child: CupertinoScrollbar(
               child: ListView.builder(
@@ -382,6 +392,7 @@ class _CalculatorPageState extends State<CalculatorPage>
               ),
             ),
           ),
+          if (_history.isNotEmpty && !kIsWeb) const AdBannerWidget(),
         ],
       ),
     );

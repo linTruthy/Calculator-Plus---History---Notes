@@ -1,17 +1,1 @@
-{
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
-  "hosting": {
-    "source": ".",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "frameworksBackend": {
-      "region": "us-central1"
-    }
-  }
-}
+{"firestore":{"rules":"firestore.rules","indexes":"firestore.indexes.json"},"hosting":{"source":".","ignore":["firebase.json","**/.*","**/node_modules/**"],"frameworksBackend":{"region":"us-central1"}},"flutter":{"platforms":{"android":{"default":{"projectId":"calculator-plus-10917","appId":"1:486711287861:android:3ba6a60c3b688220c9917c","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"calculator-plus-10917","configurations":{"android":"1:486711287861:android:3ba6a60c3b688220c9917c","web":"1:486711287861:web:168bf75c3fd295f3c9917c"}}}}}}

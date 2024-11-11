@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "486711287861",
+    "project_id": "calculator-plus-10917",
+    "storage_bucket": "calculator-plus-10917.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486711287861:android:3ba6a60c3b688220c9917c",
+        "android_client_info": {
+          "package_name": "com.truthysystems.calc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9Lgz1xz3DDuZiTF4oQ9xor63WQ0kOLMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
