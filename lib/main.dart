@@ -1,35 +1,23 @@
+import 'package:calculator_plus_history_notes/calculator_app.dart';
+import 'package:calculator_plus_history_notes/managers/theme_notifier.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart'; // Import the Provider package
 
-import 'package:myapp/screens/calculator_page.dart';
-
-import 'managers/theme_manager.dart';
+import 'services/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final themeManager = ThemeManager();
+  final themeManager = ThemeNotifier();
   await themeManager.initialize();
 
-  runApp(CalculatorApp(themeManager: themeManager));
-}
-
-class CalculatorApp extends StatelessWidget {
-  final ThemeManager themeManager;
-
-  const CalculatorApp({super.key, required this.themeManager});
-
-  @override
-  Widget build(BuildContext context) {
-    return ThemeProvider(
-      themeManager: themeManager,
-      child: CupertinoApp(
-        theme: CupertinoThemeData(
-          brightness:
-              themeManager.isDarkMode ? Brightness.dark : Brightness.light,
-          primaryColor: themeManager.currentTheme.primaryColor,
-        ),
-        home: const CalculatorPage(),
+  runApp(
+    ChangeNotifierProvider( // Wrap your app with ChangeNotifierProvider
+      create: (context) => themeManager, // Provide the themeManager instance
+      child: ThemeProvider(
+        themeManager: themeManager,
+        child: CalculatorApp(themeManager: themeManager),
       ),
-    );
-  }
+    ),
+  );
 }

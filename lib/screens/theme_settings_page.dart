@@ -1,15 +1,23 @@
+import 'package:calculator_plus_history_notes/managers/theme_notifier.dart';
+import 'package:calculator_plus_history_notes/widgets/adaptive_card.dart';
+import 'package:calculator_plus_history_notes/widgets/bouncing_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/managers/theme_manager.dart';
 
+import '../models/app_theme_config_model.dart';
 import '../widgets/reponsive_widget.dart';
 
-class ThemeSettingsPage extends StatelessWidget {
+class ThemeSettingsPage extends StatefulWidget {
   const ThemeSettingsPage({super.key});
 
   @override
+  State<ThemeSettingsPage> createState() => _ThemeSettingsPageState();
+}
+
+class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
+  @override
   Widget build(BuildContext context) {
-    final themeManager = ThemeManager();
+    final themeManager = ThemeNotifier();
     final theme = themeManager.currentTheme;
 
     return CupertinoPageScaffold(
@@ -36,7 +44,7 @@ class ThemeSettingsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildContent(ThemeManager themeManager, AppThemeConfig theme) {
+  Widget _buildContent(ThemeNotifier themeManager, AppThemeConfig theme) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Column(
@@ -91,7 +99,7 @@ class ThemeSettingsPage extends StatelessWidget {
   }
 
   Widget _buildAppearanceSection(
-      ThemeManager themeManager, AppThemeConfig theme) {
+      ThemeNotifier themeManager, AppThemeConfig theme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -131,12 +139,14 @@ class ThemeSettingsPage extends StatelessWidget {
             trailing: BouncingButton(
               onPressed: () async {
                 await themeManager.toggleDarkMode();
+                setState(() {});
               },
               child: CupertinoSwitch(
                 value: themeManager.isDarkMode,
                 activeColor: theme.primaryColor,
                 onChanged: (value) async {
                   await themeManager.toggleDarkMode();
+                  setState(() {});
                 },
               ),
             ),
@@ -146,7 +156,7 @@ class ThemeSettingsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildThemesSection(ThemeManager themeManager, AppThemeConfig theme) {
+  Widget _buildThemesSection(ThemeNotifier themeManager, AppThemeConfig theme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -170,6 +180,7 @@ class ThemeSettingsPage extends StatelessWidget {
               return BouncingButton(
                 onPressed: () async {
                   await themeManager.setTheme(availableTheme.id);
+                  setState(() {});
                 },
                 child: CupertinoListTile(
                   backgroundColor: Colors.transparent,

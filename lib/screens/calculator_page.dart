@@ -1,7 +1,12 @@
+import 'package:calculator_plus_history_notes/managers/theme_notifier.dart';
+import 'package:calculator_plus_history_notes/widgets/adaptive_button.dart';
+import 'package:calculator_plus_history_notes/widgets/adaptive_card.dart';
+import 'package:calculator_plus_history_notes/widgets/bouncing_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:myapp/models/history_item.dart';
-import '../managers/theme_manager.dart';
+import 'package:provider/provider.dart';
+import '../models/app_theme_config_model.dart';
+import '../models/history_item.dart';
 import '../widgets/reponsive_widget.dart';
 import 'theme_settings_page.dart';
 
@@ -200,12 +205,12 @@ class _CalculatorPageState extends State<CalculatorPage>
 
   @override
   Widget build(BuildContext context) {
-    final theme = ThemeManager().currentTheme;
-
+    final themeManager = Provider.of<ThemeNotifier>(context);
+    final theme = themeManager.currentTheme;
     return CupertinoPageScaffold(
       backgroundColor: theme.backgroundColor,
       navigationBar: CupertinoNavigationBar(
-        middle: const Text('Calculator'),
+        middle: const Text('Calculator Plus - History & Notes'),
         trailing: _buildNavigationButtons(theme),
       ),
       child: ResponsiveLayout(
@@ -238,8 +243,8 @@ class _CalculatorPageState extends State<CalculatorPage>
 
   Widget _buildKeypad(AppThemeConfig theme) {
     return ResponsiveGrid(
-      spacing: 8,
-      runSpacing: 8,
+      spacing: 5,
+      runSpacing: 5,
       minCrossAxisCount: 4,
       maxCrossAxisCount: 4,
       children: [
@@ -255,7 +260,7 @@ class _CalculatorPageState extends State<CalculatorPage>
     return Expanded(
       flex: 2,
       child: AdaptiveCard(
-        //  margin: const EdgeInsets.all(16),
+        //margin: const EdgeInsets.all(16),
         padding: const EdgeInsets.all(20),
         backgroundColor: theme.displayColor,
         boxShadow: [
@@ -422,6 +427,7 @@ class _CalculatorPageState extends State<CalculatorPage>
             _addNumber(text);
         }
       },
+      borderRadius: 28,
     );
   }
 
